@@ -214,8 +214,3 @@ jQuery("#updatePrices").on('click', function() {
 
 
 }, 2000);
-
-});
-
-
-}, 2000);
