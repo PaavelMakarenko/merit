@@ -1,270 +1,219 @@
-/* ====== AG helper for invoices (rewritten) ====== */
-(function(){
-  console.log("🚀 custom script activated");
+console.log("custom script activated210125");
 
-  /************** 1) UI подправки **************/
-  jQuery(".content.maincontent.subwrap").css({'padding-left':'120px'});
-  jQuery("#breadcrumbs").css({'padding':'0px 60px 0 140px'});
+setTimeout(function(){ 
 
-  /************** 2) Кнопки (уникальные id) **************/
-  const buttons = [
-    { id:'kolblik',      text:'Kõlblik',   css:{top:60,  bg:'#22a506', fg:'#fff'} },
-    { id:'kokku',        text:'Kokku',     css:{top:100, bg:'#4eff28', fg:'#000'} },
-    //{ id:'selver',     text:'Selver',    css:{top:150, bg:'red',     fg:'#fff'} },
-    //{ id:'maxima',     text:'Maxima',    css:{top:190, bg:'red',     fg:'#fff'} },
-    { id:'omavedu',      text:'Omavedu',   css:{top:150, bg:'#0077ff', fg:'#fff'} },
-    { id:'updatePrices', text:'Uus hind',  css:{top:190, bg:'#ad1e42', fg:'#fff'} },
+jQuery(".content.maincontent.subwrap").css({
+	'padding-left': '120px',
+});
 
-    // Пресеты позиций (были дубли id — исправлено)
-    { id:'setARM',      text:'ARM',      code:'111m',  css:{top:260, bg:'#00a611', fg:'#fff'} },
-    { id:'setSEA',      text:'SEA',      code:'112m',  css:{top:300, bg:'#a65017', fg:'#fff'} },
-    { id:'setKANA',     text:'KANA',     code:'114m',  css:{top:340, bg:'#ffdb00', fg:'#000'} },
-    { id:'setSISE',     text:'SISE',     code:'113m',  css:{top:380, bg:'#d40b0b', fg:'#fff'} },
-    { id:'setKALK',     text:'KALK',     code:'116m',  css:{top:420, bg:'#77f82f', fg:'#000'} },
-    { id:'setTIIVAD',   text:'TIIVAD',   code:'115m',  css:{top:460, bg:'#fff86d', fg:'#000'} },
-    { id:'setSEAPUN',   text:'SEA PUN',  code:'101m',  css:{top:500, bg:'#1f2ed6', fg:'#fff'} },
+jQuery("#breadcrumbs").css({
+	'padding': '0px 60px 0 140px',
+});
 
-    { id:'setTALLE',    text:'TALLE',    code:'120m',  css:{top:570, bg:'#a65017', fg:'#fff'} },
-    { id:'setKARREE',   text:'KARREE',   code:'119m',  css:{top:610, bg:'#1f2ed6', fg:'#fff'} },
-    { id:'setRINNA',    text:'RINNA',    code:'177m',  css:{top:650, bg:'#e803b7', fg:'#fff'} },
+jQuery("body").prepend("<button id='kolblik' style='background: #22a506;color: white; position:fixed; top: 60px; left: 0; z-index: 9999;'>K\xF5lblik</button>");
+jQuery("body").prepend("<button id='kokku' style='background: #4eff28;color: black; position:fixed; top: 100px; left: 0; z-index: 9999;'>Kokku</button>");
 
-    { id:'setANT',      text:'ANT',      code:'150m',  css:{top:700, bg:'#2fe6f8', fg:'#000'} },
-    { id:'setRIBI',     text:'RIBI',     code:'161m',  css:{top:740, bg:'#723105', fg:'#fff'} },
+//jQuery("body").prepend("<button id='selver' style='background: red;color: white; position:fixed; top: 150px; left: 0; z-index: 9999;'>Selver</button>");
+//jQuery("body").prepend("<button id='maxima' style='background: red;color: white; position:fixed; top: 190px; left: 0; z-index: 9999;'>Maxima</button>");
 
-    { id:'setKK',       text:'KK',       code:'117m',  css:{top:790, left:0,   bg:'#ecff2e', fg:'#000'} },
-    { id:'setAK',       text:'AK',       code:'118m',  css:{top:790, left:60,  bg:'#f50505', fg:'#fff'} },
-    { id:'setLK',       text:'LK',       code:'143m',  css:{top:790, left:120, bg:'#54ab0c', fg:'#fff'} },
+jQuery("body").prepend("<button id='omavedu' style='background: #0077ff;color: white; position:fixed; top: 150px; left: 0; z-index: 9999;'>Omavedu</button>");
+jQuery("body").prepend("<button id='updatePrices' style='background: #ad1e42;color: white; position:fixed; top: 190px; left: 0; z-index: 9999;'>Uus hind</button>");
 
-    { id:'setMAKS',     text:'MAKS',     code:'140m',  css:{top:830, bg:'#8f0909', fg:'#fff'} },
-    { id:'setSUTTIIB',  text:'SÜT TIIB', code:'124m',  css:{top:830, left:90, bg:'#b92f2f', fg:'#fff'} },
+jQuery("body").prepend("<button id='setARM' class='setPosition' data-post='111m' style='background: #00a611;color: white; position:fixed; top: 260px; left: 0; z-index: 9999;'>ARM</button>");
+jQuery("body").prepend("<button id='setSEA' class='setPosition' data-post='112m' style='background: #a65017;color: white; position:fixed; top: 300px; left: 0; z-index: 9999;'>SEA</button>");
+jQuery("body").prepend("<button id='setKANA' class='setPosition' data-post='114m' style='background: #ffdb00;color: black; position:fixed; top: 340px; left: 0; z-index: 9999;'>KANA</button>");
+jQuery("body").prepend("<button id='setSISE' class='setPosition' data-post='113m' style='background: #d40b0b;color: white; position:fixed; top: 380px; left: 0; z-index: 9999;'>SISE</button>");
+jQuery("body").prepend("<button id='setKALK' class='setPosition' data-post='116m' style='background: #77f82f;color: black; position:fixed; top: 420px; left: 0; z-index: 9999;'>KALK</button>");
+jQuery("body").prepend("<button id='setTIIVAD' class='setPosition' data-post='115m' style='background: #fff86d;color: black; position:fixed; top: 460px; left: 0; z-index: 9999;'>TIIVAD</button>");
+jQuery("body").prepend("<button id='setSEAPUN' class='setPosition' data-post='101m' style='background: #1f2ed6;color: white; position:fixed; top: 500px; left: 0; z-index: 9999;'>SEA PUN</button>");
 
-    { id:'setBEEF',     text:'BEEF',     code:'1110m', css:{top:880, left:0,  bg:'#f82f2f', fg:'#fff'} },
-    { id:'setBEEFKG',   text:'BEEF kg',  code:'1111m', css:{top:880, left:90, bg:'#f82f2f', fg:'#fff'} },
-    { id:'setPORK',     text:'PORK',     code:'1114m', css:{top:920, left:0,  bg:'#f82f2f', fg:'#fff'} },
-    { id:'setPORKKG',   text:'PORK kg',  code:'1114k', css:{top:920, left:90, bg:'#f82f2f', fg:'#fff'} },
-    { id:'setLAMB',     text:'LAMB',     code:'1115m', css:{top:960, left:0,  bg:'#f82f2f', fg:'#fff'} },
-    { id:'setLAMBKG',   text:'LAMB kg',  code:'1112m', css:{top:960, left:90, bg:'#f82f2f', fg:'#fff'} },
-    { id:'setSUDZ',     text:'SUDZ',     code:'1116m', css:{top:1000,left:0,  bg:'#f82f2f', fg:'#fff'} },
-    { id:'setSUDZKG',   text:'SUDZ kg',  code:'1113m', css:{top:1000,left:90, bg:'#f82f2f', fg:'#fff'} },
-  ];
 
-  buttons.forEach(b=>{
-    const top = (b.css && b.css.top != null) ? b.css.top : 0;
-    const left = (b.css && b.css.left != null) ? b.css.left : 0;
-    jQuery("body").prepend(
-      `<button id="${b.id}" class="${b.code ? 'setPosition' : ''}" ${b.code ? `data-post="${b.code}"` : ''} 
-        style="background:${b.css.bg};color:${b.css.fg};position:fixed;top:${top}px;left:${left}px;z-index:9999;">
-        ${b.text}</button>`
-    );
-  });
+jQuery("body").prepend("<button id='setKANA' class='setPosition' data-post='120m' style='background: #a65017;color: white; position:fixed; top: 570px; left: 0; z-index: 9999;'>TALLE</button>");
+jQuery("body").prepend("<button id='setARM' class='setPosition' data-post='119m' style='background: #1f2ed6;color: white; position:fixed; top: 610px; left: 0; z-index: 9999;'>KARREE</button>");
+jQuery("body").prepend("<button id='setSEA' class='setPosition' data-post='177m' style='background: #e803b7;color: white; position:fixed; top: 650px; left: 0; z-index: 9999;'>RINNA</button>");
 
-  /************** 3) Данные цен из Google Sheet **************/
-  const SHEET_URL = "https://opensheet.elk.sh/1XVWIIWKbOMtOhEnEYoAYIrdSQ7uHMhTYQe5sd4JLKGs/Sheet1";
-  const PriceData = {
-    stores: new Map(),     // Map<store, Map<code, number>>
-    basturmaDate: null,
-    ready: null
-  };
+jQuery("body").prepend("<button id='setANT' class='setPosition' data-post='150m' style='background: #2fe6f8;color: black; position:fixed; top: 700px; left: 0; z-index: 9999;'>ANT</button>");
+//jQuery("body").prepend("<button id='setTRDARM' class='setPosition' data-post='160m' style='background: #f82f2f;color: white; position:fixed; top: 700px; left: 90px; z-index: 9999;'>TRD ARM</button>");
 
-  PriceData.ready = (async () => {
-    const resp = await fetch(SHEET_URL, { cache: "no-store" });
-    const rows = await resp.json();
+jQuery("body").prepend("<button id='setRIBI' class='setPosition' data-post='161m' style='background: #723105;color: white; position:fixed; top: 740px; left: 0; z-index: 9999;'>RIBI</button>");
+//jQuery("body").prepend("<button id='setLECHOS' class='setPosition' data-post='162m' style='background: #29eb00;color: black; position:fixed; top: 740px; left: 90px; z-index: 9999;'>LECHOS</button>");
 
-    for (const row of rows) {
-      const store = (row.Store || "").trim();
-      const code  = (row.Code || "").trim();
-      const priceStr = ((row.Price ?? "") + "").replace(",", ".").trim();
-      const price = Number(priceStr);
+jQuery("body").prepend("<button id='setKK' class='setPosition' data-post='117m' style='background: #ecff2e;color: black; position:fixed; top: 790px; left: 0; z-index: 9999;'>KK</button>");
+jQuery("body").prepend("<button id='setAK' class='setPosition' data-post='118m' style='background: #f50505;color: white; position:fixed; top: 790px; left: 60px; z-index: 9999;'>AK</button>");
+jQuery("body").prepend("<button id='setLK' class='setPosition' data-post='143m' style='background: #54ab0c;color: white; position:fixed; top: 790px; left: 120px; z-index: 9999;'>LK</button>");
+jQuery("body").prepend("<button id='setMAKS' class='setPosition' data-post='140m' style='background: #8f0909;color: white; position:fixed; top: 830px; left: 0; z-index: 9999;'>MAKS</button>");
+jQuery("body").prepend("<button id='setSUTTIIB' class='setPosition' data-post='124m' style='background: #b92f2f;color: white; position:fixed; top: 830px; left: 90px; z-index: 9999;'>S\xDCT TIIB</button>");
 
-      if (store === "meta" && code === "basturmaDate") {
-        PriceData.basturmaDate = row.Price;
-        continue;
-      }
-      if (!store || !code || !Number.isFinite(price)) continue;
+jQuery("body").prepend("<button id='setBEEF' class='setPosition' data-post='1110m' style='background: #f82f2f;color: white; position:fixed; top: 880px; left: 0; z-index: 9999;'>BEEF</button>");
+jQuery("body").prepend("<button id='setBEEFKG' class='setPosition' data-post='1111m' style='background: #f82f2f;color: white; position:fixed; top: 880px; left: 90px; z-index: 9999;'>BEEF kg</button>");
+jQuery("body").prepend("<button id='setPORK' class='setPosition' data-post='1114m' style='background: #f82f2f;color: white; position:fixed; top: 920px; left: 0; z-index: 9999;'>PORK</button>");
+jQuery("body").prepend("<button id='setPORKKG' class='setPosition' data-post='1114k' style='background: #f82f2f;color: white; position:fixed; top: 920px; left: 90px; z-index: 9999;'>PORK kg</button>");
+jQuery("body").prepend("<button id='setLAMB' class='setPosition' data-post='1115m' style='background: #f82f2f;color: white; position:fixed; top: 960px; left: 0; z-index: 9999;'>LAMB</button>");
+jQuery("body").prepend("<button id='setLAMBKG' class='setPosition' data-post='1112m' style='background: #f82f2f;color: white; position:fixed; top: 960px; left: 90px; z-index: 9999;'>LAMB kg</button>");
+jQuery("body").prepend("<button id='setSUDZ' class='setPosition' data-post='1116m' style='background: #f82f2f;color: white; position:fixed; top: 1000px; left: 0; z-index: 9999;'>SUDZ</button>");
+jQuery("body").prepend("<button id='setSUDZKG' class='setPosition' data-post='1113m' style='background: #f82f2f;color: white; position:fixed; top: 1000px; left: 90px; z-index: 9999;'>SUDZ kg</button>");
 
-      if (!PriceData.stores.has(store)) PriceData.stores.set(store, new Map());
-      PriceData.stores.get(store).set(code, price);
 
-      // Совместимость со старым кодом (глобальные Map)
-      if (!globalThis[store]) globalThis[store] = new Map();
-      globalThis[store].set(code, price);
-    }
-    globalThis.basturmaDate = PriceData.basturmaDate;
-    console.log("📅 basturmaDate:", PriceData.basturmaDate);
-    console.log("✅ Магазины:", [...PriceData.stores.keys()]);
-  })().catch(e=>{
-    console.error("❌ Ошибка загрузки прайса:", e);
-  });
 
-  function getPriceFor(department, articleCode) {
-    const map = globalThis[department];
-    if (map instanceof Map) {
-      const v = map.get(articleCode);
-      return Number.isFinite(v) ? v : null;
-    }
-    return null;
-  }
+const basturmaCodes = ["1110m", "1114m", "1115m", "1116m"];
+const basturmaKgCodes = ["1111m", "1114k"];
 
-  /************** 4) Утилиты работы со строками **************/
-  function lastRow() {
-    return jQuery(".saleslines .items > .item:last");
-  }
-  function articleInput($row) {
-    return $row.find("input[name='ArticleCode'].getitembyid");
-  }
+jQuery("#kolblik").on('click', function() {
+	
+	var stringDate = jQuery("#DocumentDate").val();
+	var day = stringDate.split(".")[0], month = stringDate.split(".")[1], year = stringDate.split(".")[2];
+	var currentDate = new Date(year,month-1,day);
+	
+	var futureDate15 = new Date(currentDate.setDate(currentDate.getDate() + 15));
+	var expiryString15 = " (k\xF5lblik kuni " + ("0" + futureDate15.getDate()).slice(-2) + "." +("0" + (futureDate15.getMonth() + 1)).slice(-2) + "." + futureDate15.getFullYear() + ")";
+	
+	var futureDate181 = new Date(currentDate.setDate(currentDate.getDate() + 165));
+	var expiryString181 = " (k\xF5lblik kuni " + ("0" + futureDate181.getDate()).slice(-2) + "." +("0" + (futureDate181.getMonth() + 1)).slice(-2) + "." + futureDate181.getFullYear() + ")";
+	
+	var basturmaExpiryString = " (k\xF5lblik kuni " + basturmaDate + ")";
+	
+	jQuery(".items > .item").each(function() {
+		var item = jQuery(this);
+		var articleCode = item.find(".field-ArticleCode input[name=ArticleCode]").val();
+		console.log(articleCode);
+		var itemDescription = item.find(".field-Description input");
+		if(basturmaCodes.includes(articleCode)) {
+			itemDescription.val(itemDescription.val() + basturmaExpiryString);	
+		}
+		else if(basturmaKgCodes.includes(articleCode)) {
+			itemDescription.val(itemDescription.val() + expiryString181);	
+		}
+		else {
+			itemDescription.val(itemDescription.val() + expiryString15);
+		}
+		itemDescription.trigger("change");
+	})
 
-  function addPositionByCode(code) {
-    const row = lastRow();
-    const input = articleInput(row);
-    if (!input.length) {
-      console.warn("Не найдено поле ArticleCode в последней строке");
-      return;
-    }
+});
 
-    input.focus();
-    input.val(code);
-    input.trigger("input").trigger("change").trigger("keyup");
+jQuery("#selver").on('click', function() {
+	jQuery("#HComment").val("Maksja: Selver AS\nAadress: P\xE4rnu mnt 238, Tallinn\nRg-kood: 10379733");
+});
 
-    setTimeout(function(){
-      const gridId = input.attr("data-gridid");
-      const $lists = jQuery([
-        "#dropdownlist",
-        gridId ? `#${gridId}` : null
-      ].filter(Boolean).join(","));
+jQuery("#maxima").on('click', function() {
+	jQuery("#HComment").val("Maksja: Maxima Eesti O\xDC\nAadress: Aiandi str.13/2, Tallinn\nRg-kood: 10765896");
+});			
 
-      let clicked = false;
-      $lists.each(function(){
-        const $opt = jQuery(this).find(".field-Code span")
-          .filter(function(){ return jQuery(this).text().trim() === code; })
-          .first();
-        if ($opt.length) {
-          $opt.click();
-          clicked = true;
-          return false;
-        }
-      });
+jQuery("#kokku").on('click', function() {
+	var kogus = 0;
+	jQuery("tbody .field-Quantity.numberfield").each(function(){
+		var el = jQuery(this);
+		if(el.next().find("input:text").val() == 'tk') {
+			kogus += parseFloat(el.children().val().replace(',', '.')) * 0.05;
+		}
+		else {
+			kogus += parseFloat(el.children().val().replace(',', '.'));	
+		}					
+	});
+	kogus = Math.round(kogus * 100) / 100;
+	var curText = jQuery("#FComment").val();
+	
+	var currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+	var day = currentDate.getDate();
+		if( day < 10 )
+			day = "0" + day;
+	var month = currentDate.getMonth()+ 1;
+		if( month < 10 )
+			month = "0" + month;
+	var year = currentDate.getFullYear();
+	var tomorrowDate = day + "." + month + "." + year;
+	
+	jQuery("#FComment").val("Kogus kokku: " + kogus + " kg\nKaste: \n" + curText + "\nTarne kuup\xE4ev " + tomorrowDate + "\nTooted s\xE4ilitada temp.  +2,...+4 C");
+});
 
-      if (!clicked && input[0]) {
-        const el = input[0];
-        el.dispatchEvent(new KeyboardEvent("keydown", { key:"Enter", bubbles:true }));
-        el.dispatchEvent(new KeyboardEvent("keyup",   { key:"Enter", bubbles:true }));
-      }
+jQuery("#omavedu").on('click', function() {
+	var curText = jQuery("#FComment").val();	
+	jQuery("#FComment").val(curText + "\nOmavedu");
+});
 
-      setTimeout(function(){
-        jQuery(".saleslines .tablewrap .addnewline > td").click();
-      }, 80);
-    }, 100);
-  }
+jQuery(".setPosition").on('click', function() {
+	var input = jQuery(".saleslines .tablewrap tbody tr.item:last-child input[name=ArticleCode]");
+	var post_id = jQuery(this).data("post");
+	input.focus().focus().val(post_id).trigger("change").trigger("keyup");
+	jQuery("#dropdownlist .field-Code span:contains('" + post_id +"')").filter(function() {
+	    return jQuery(this).text() === post_id;
+	}).click();
+	jQuery(".saleslines .tablewrap .addnewline > td").click();
+});
 
-  /************** 5) Логика кнопок **************/
-  const basturmaCodes   = ["1110m","1114m","1115m","1116m"];
-  const basturmaKgCodes = ["1111m","1114k"];
+jQuery("#updatePrices").on('click', function() {
+	
+	jQuery(".saleslines .items > .item").each(function() {
+		var item = jQuery(this);
+		var articleCode = item.find(".field-ArticleCode input[name=ArticleCode]").val();
+		var price = item.find(".field-Price input");
+		var new_price = null;
+		
+		var department = jQuery("#DepartmentName").val();
+		
+		switch (department) {
+			case 'coop':
+				new_price = coop.get(articleCode);
+				break;
+			case 'grossi':
+				new_price = grossi.get(articleCode);
+				break;
+			case 'SANITEX':
+				new_price = sanitex.get(articleCode);
+				break;
+			case 'tartu':
+				new_price = tartu.get(articleCode);
+				break;
+			case 'harju':
+				new_price = harju.get(articleCode);
+				break;
+			case 'prisma':
+				new_price = prisma.get(articleCode);
+				break;
+			case 'keila':
+				new_price = keila.get(articleCode);
+				break;
+			case 'maxima':
+				new_price = maxima.get(articleCode);
+				break;
+			case 'pinus':
+				new_price = pinus.get(articleCode);
+				break;
+			case 'selver':
+				new_price = selver.get(articleCode);
+				break;
+			case 'a1000':
+				new_price = a1000.get(articleCode);
+				break;
+			case 'herkut':
+				new_price = herkut.get(articleCode);
+				break;
+			case 'tht':
+				new_price = tht.get(articleCode);
+				break;
+			case 'meie':
+				new_price = meie.get(articleCode);
+				break;
+			case 'aldar':
+				new_price = aldar.get(articleCode);
+				break;
+			case 'Rimi':
+				new_price = rimi.get(articleCode);
+				break;
+			default:
+				new_price = null;
+		}
+		
+		if(new_price != null) {
+			price.val(new_price);
+			price.trigger("change");	
+		}
+	})
 
-  jQuery("#kolblik").on("click", async function(){
-    await PriceData.ready;
+});
 
-    // исходная дата документа
-    var stringDate = jQuery("#DocumentDate").val(); // DD.MM.YYYY
-    var [day, month, year] = (stringDate || "").split(".");
-    var currentDate = day && month && year ? new Date(+year, +month-1, +day) : new Date();
 
-    var futureDate15  = new Date(currentDate.getTime());
-    futureDate15.setDate(futureDate15.getDate() + 15);
-
-    var futureDate181 = new Date(currentDate.getTime());
-    futureDate181.setDate(futureDate181.getDate() + 180);
-
-    function fmt(d){ return ("0"+d.getDate()).slice(-2) + "." + ("0"+(d.getMonth()+1)).slice(-2) + "." + d.getFullYear(); }
-
-    var expiryString15  = " (kõlblik kuni " + fmt(futureDate15)  + ")";
-    var expiryString181 = " (kõlblik kuni " + fmt(futureDate181) + ")";
-
-    // если basturmaDate нет — используем 181 дней
-    var basturmaExp = " (kõlblik kuni " + (globalThis.basturmaDate || fmt(futureDate181)) + ")";
-
-    jQuery(".items > .item").each(function(){
-      var item = jQuery(this);
-      var code = item.find(".field-ArticleCode input[name=ArticleCode]").val();
-      var $desc = item.find(".field-Description input");
-      if (!$desc.length) return;
-
-      if (basturmaCodes.includes(code)) {
-        $desc.val($desc.val() + basturmaExp);
-      } else if (basturmaKgCodes.includes(code)) {
-        $desc.val($desc.val() + expiryString181);
-      } else {
-        $desc.val($desc.val() + expiryString15);
-      }
-      $desc.trigger("change");
-    });
-  });
-
-  jQuery("#selver").on("click", function(){
-    jQuery("#HComment").val("Maksja: Selver AS\nAadress: Pärnu mnt 238, Tallinn\nRg-kood: 10379733");
-  });
-
-  jQuery("#maxima").on("click", function(){
-    jQuery("#HComment").val("Maksja: Maxima Eesti OÜ\nAadress: Aiandi str.13/2, Tallinn\nRg-kood: 10765896");
-  });
-
-  jQuery("#kokku").on("click", function(){
-    var kogus = 0;
-    jQuery("tbody .field-Quantity.numberfield").each(function(){
-      var el = jQuery(this);
-      var unit = el.next().find("input:text").val();
-      var val = parseFloat((el.children().val() || "0").toString().replace(",", "."));
-      if (isNaN(val)) val = 0;
-      if (unit === "tk") kogus += val * 0.05; else kogus += val;
-    });
-    kogus = Math.round(kogus * 100) / 100;
-
-    var curText = jQuery("#FComment").val() || "";
-    var currentDate = new Date(Date.now() + 24*60*60*1000);
-    var dd = ("0"+currentDate.getDate()).slice(-2);
-    var mm = ("0"+(currentDate.getMonth()+1)).slice(-2);
-    var yyyy = currentDate.getFullYear();
-    var tomorrowDate = dd+"."+mm+"."+yyyy;
-
-    jQuery("#FComment").val("Kogus kokku: " + kogus + " kg\nKaste: \n" + curText + "\nTarne kuupäev " + tomorrowDate + "\nTooted säilitada temp.  +2,...+4 C");
-  });
-
-  jQuery("#omavedu").on("click", function(){
-    var curText = jQuery("#FComment").val() || "";
-    jQuery("#FComment").val(curText + (curText ? "\n" : "") + "Omavedu");
-  });
-
-  jQuery(".setPosition").off("click").on("click", function(){
-    const code = jQuery(this).data("post");
-    addPositionByCode(code);
-  });
-
-  jQuery("#updatePrices").on("click", async function(){
-    await PriceData.ready;
-
-    const department = jQuery("#DepartmentName").val();
-    if (!department) {
-      console.warn("⚠️ DepartmentName пуст");
-    } else if (!(globalThis[department] instanceof Map)) {
-      console.warn(`⚠️ Цены для отдела "${department}" не загружены`);
-    }
-
-    jQuery(".saleslines .items > .item").each(function(){
-      const $item = jQuery(this);
-      const articleCode = $item.find(".field-ArticleCode input[name=ArticleCode]").val();
-      const $price = $item.find(".field-Price input");
-      const newPrice = getPriceFor(department, articleCode);
-
-      if (newPrice != null) {
-        $price.val(newPrice);
-        $price.trigger("input").trigger("change");
-      } else if (articleCode) {
-        console.warn(`💡 Нет цены для ${department}:${articleCode}`);
-      }
-    });
-  });
-
-})();
-
+}, 2000);
 
 });
 
