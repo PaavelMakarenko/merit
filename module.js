@@ -1,4 +1,3 @@
-<script>
 /* ====== AG helper for invoices (rewritten) ====== */
 (function(){
   console.log("🚀 custom script activated");
@@ -265,7 +264,6 @@
   });
 
 })();
-</script>
 
 
 });
